@@ -1,0 +1,56 @@
+plugins {
+    id "java"
+    id "maven-publish"
+    id "com.jfrog.bintray" version "1.7.2"
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "com.marklogic:ml-app-deployer:2.4.0"
+    compile('org.codehaus.groovy:groovy-all:2.4.4') { force = true }
+    compile('commons-cli:commons-cli:1.2')
+    compile("jline:jline:2.11") {
+        exclude(group: 'junit', module: 'junit')
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        mainJava(MavenPublication) {
+            from components.java
+        }
+        sourcesJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+        }
+    }
+}
+
+if (project.hasProperty("myBintrayUser")) {
+    bintray {
+        user = myBintrayUser
+        key = myBintrayKey
+        publications = ['mainJava', 'sourcesJava']
+        pkg {
+            repo = 'maven'
+            name = project.name
+            licenses = ['Apache-2.0']
+            vcsUrl = 'https://github.com/rjrudin/' + project.name + '.git'
+            version {
+                name = project.version
+                released = new Date()
+            }
+        }
+    }
+}
