@@ -13,8 +13,8 @@ repositories {
 
 dependencies {
     compile "com.marklogic:ml-app-deployer:2.4.0"
-    compile('org.codehaus.groovy:groovy-all:2.4.4') { force = true }
-    compile('commons-cli:commons-cli:1.2')
+    compile("org.codehaus.groovy:groovy-all:2.4.7") { force = true }
+    compile("commons-cli:commons-cli:1.2")
     compile("jline:jline:2.11") {
         exclude(group: 'junit', module: 'junit')
     }
