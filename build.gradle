@@ -11,8 +11,11 @@ repositories {
     jcenter()
 }
 
+/**
+ * This doesn't specify a dependency on ml-app-deployer, as it doesn't depend on ml-app-deployer. It does mean an end
+ * user must specify a version to use for ml-app-deployer, but that gives the end user freedom over which version to use.
+ */
 dependencies {
-    compile "com.marklogic:ml-app-deployer:2.4.0"
     compile("org.codehaus.groovy:groovy-all:2.4.7") { force = true }
     compile("commons-cli:commons-cli:1.2")
     compile("jline:jline:2.11") {
